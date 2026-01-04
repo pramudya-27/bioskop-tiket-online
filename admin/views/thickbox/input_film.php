@@ -12,10 +12,10 @@
 		$judul = "Tambah Data Film";
 		$button = "Simpan";
 		$onclick = "simpan_film()";
-		// Initialize empty array for Add mode
 		$data = array_fill(0, 10, "");
 		$data['durasi'] = "";
 		$data['id_jadwal'] = "";
+		$data['id_tiket'] = "";
 		$data['rating'] = "";
 		$data['score'] = "";
 		$data['rilis'] = "";
@@ -41,6 +41,9 @@
 
 			<p>ID Jadwal</p>
 			<input type="text" name="jadwal" value="<?php echo $data['id_jadwal']; ?>" required>
+
+			<p>ID Tiket</p>
+			<input type="text" name="id_tiket" value="<?php echo isset($data['id_tiket']) ? $data['id_tiket'] : ''; ?>">
 
 			<p>Rating</p>
 			<?php 

@@ -5,7 +5,11 @@
 	$dt4 = $sql4->fetch();
 	$kode = $dt4['kode'];
 
-	$nu = (int) substr($kode, 4,5);
+	if ($kode != null) {
+		$nu = (int) substr($kode, 4,5);
+	} else {
+		$nu = 0;
+	}
 	$nu++;
 
 	$char = "PMSN";
@@ -175,6 +179,7 @@
 								</ul>
 						</div>
 						 <button style="padding: 5px 18px;border:1px;background-color: #000;color:#fff;text-transform: uppercase;float: right;font-size: 15px;" data-toggle="modal" data-target="#kranjang" <?php echo $akun; ?> >Keranjang</button>
+						 <a href="dashboard_tiket.php" style="padding: 5px 18px;border:1px;background-color: #000;color:#fff;text-transform: uppercase;float: right;font-size: 15px; margin-right: 5px; text-decoration: none; display: inline-block;" <?php echo $akun; ?>>Tiket</a>
 				</div>
 			</div>
 
@@ -186,7 +191,7 @@
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h4>Daftar Blanja</h4>
 										<div class="login-form">
-											<form action="models/s_pesan.php" method="post">
+											<form action="views/checkout.php" method="post">
 												<table class="table">
 												<?php
 													$sql1 = $proses->tampil("*","dtl_pemesan","WHERE dtl_pemesan.id_pemesan = '$newid'");
@@ -205,9 +210,12 @@
 														<td><?php echo $dt2['judul']; ?></td>
 														<td><?php echo $dt2['rilis']; ?></td>
 														<td><?php echo $dt2['genre']; ?></td>
-														<td>No Kursi : <?php echo $dt2['kursi']; ?></td>
+													<td>No Kursi : <?php echo $dt2['kursi']; ?></td>
 														<td>Rp. <?php echo number_format($dt2['harga'],2,",","."); ?></td>
-														<td><a href="models/h_dtl_pesan.php?id=<?php echo $dt2['id_dtl_pemesan']; ?>"><span class="label label-danger">DELET</span></a></td>
+														<td>
+															<a href="models/h_dtl_pesan.php?id=<?php echo $dt2['id_dtl_pemesan']; ?>"><span class="label label-danger">DELETE</span></a>
+															<button type="submit" class="label label-success" style="border: none;">Beli</button>
+														</td>
 													</tr>
 													
 												<?php } ?>
@@ -216,9 +224,9 @@
 													<input type="hidden" name="id_member" value="<?php echo $_SESSION['id']; ?>">
 													<input type="hidden" name="jm_tiket" value="<?php echo $row1; ?>">
 													<input type="hidden" name="t_harga" value="<?php echo $dt3[0]; ?>">
-												<div class="tp" style="width: 100px;">
-													<input type="submit" value="Beli">
-												</div>
+												<?php if ($row1 > 0) { ?>
+												
+												<?php } ?>
 											</form>
 										</div>
 									</div>

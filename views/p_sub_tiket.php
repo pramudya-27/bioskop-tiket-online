@@ -1,5 +1,7 @@
 <?php 
-	include "../config/crud.php";
+	include_once "../config/crud.php";
+	$sql = $proses->tampil("pemesan.*, member.nama", "pemesan LEFT JOIN member ON pemesan.id_member = member.id_member", "WHERE pemesan.id_pemesan = '$_GET[id]'");
+	$dt = $sql->fetch();
  ?>
  <!DOCTYPE html>
  <html>
@@ -13,7 +15,10 @@
  		</div>
  		<div class="isi">
  			<p>Silahkan datang ke loket Bioskop untuk mengambil & membayar tiket. Di bawah ini adalah ID Pemesanan anda, jangan sampai anda melupakannya </p>
- 			<h2 style="text-align: center;"><?php echo $_GET['id']; ?></h2>
+ 			<div style="text-align: center;">
+				<p>Nama Pemesan: <b><?php echo $dt['nama'] != null ? $dt['nama'] : 'User/Tamu'; ?></b></p>
+ 				<h2><?php echo $_GET['id']; ?></h2>
+			</div>
  			<p>Jika anda tidak segera mengambilnya dalam kurun waktu 3 (Tiga) hari, maka seluruh tiket yang anda pesan akan hangus.</p>
  		</div>
  	<button class="btn-print" onclick="b_print()">Print</button>

@@ -7,10 +7,12 @@
 		echo "<script>document.location = '../index.php'</script>";
 	}else{
 		$proses->simpan("dtl_pemesan","
-										'',
+										NULL,
 										'$_POST[kursi]',
 										'$_POST[tiket]',
-										'$_POST[pemesan]' ");
+										'$_POST[pemesan]',
+										'$_POST[tgl_tayang]',
+										'$_POST[sesi]' ");
 		echo "<script>alert('Berhasi Menambahkan')</script>";
 		echo "<script>document.location = '../index.php'</script>";
 	}

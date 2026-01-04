@@ -26,14 +26,14 @@
 		<tr>
 			<td width="70"><?php echo $data[0]; ?></td>
 			<td><?php echo $data[1]; ?></td>
-			<td><?php echo substr($data[2],0,10);?>...</td>
+			<td><?php echo substr($data['genre'] ?? '',0,10);?>...</td>
 			<td><?php echo $data[3]; ?></td>
-			<td><?php echo substr($data[4], 0,5); ?></td>
+			<td><?php echo substr($data['durasi'] ?? '', 0,5); ?></td>
 			<td><?php echo $data[5]; ?></td>
-			<td><?php echo $data[7]; ?></td>
+			<td><?php echo isset($data['id_tiket']) ? $data['id_tiket'] : '-'; ?></td>
 			<td><?php echo $data['rilis']; ?></td>
 			<td><?php echo $data['score']; ?></td>
-			<td width="150"><?php echo substr($data[6],0,40);?>...</td>
+			<td width="150"><?php echo substr($data['sinopsis'] ?? '',0,40);?>...</td>
 			<td><img src="assets/img/film/<?php echo $data['gambar']; ?>" width="80" height="90"></td>
 			<td width="130">
 				<button id="btn-hapus" onclick="h_film(<?php echo $data[0]; ?>)">Hapus</button>

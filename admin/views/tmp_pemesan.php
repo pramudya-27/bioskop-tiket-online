@@ -15,19 +15,18 @@
 	<tbody>
 	<?php
 		$no = "1";
-		$sql = $proses->tampil("*","pemesan,member","WHERE member.id_member = pemesan.id_member AND pemesan.status = '0'");
+		$sql = $proses->tampil("pemesan.*, member.nama AS nama_member","pemesan LEFT JOIN member ON pemesan.id_member = member.id_member","WHERE pemesan.status = '1'");
 		foreach ($sql as $data) {
 	 ?>
 		<tr>
 			<td><?php echo $no++; ?></td>
-			<td><?php echo $data[0]; ?></td>
-			<td><?php echo $data['nama']; ?></td>
+			<td><?php echo $data['id_pemesan']; ?></td>
+			<td><?php echo $data['nama_member'] != null ? $data['nama_member'] : 'User ID: '.$data['id_member'].' (Deleted)'; ?></td>
 			<td><?php echo $data['jml_tiket_pesan']; ?></td>
 			<td>Rp.<?php echo number_format($data['total_harga'],2,",","."); ?></td>
 			<td width="130">
 				<button id="btn-hapus" onclick="h_pemesan('<?php echo $data[0]; ?>')">Hapus</button>
 				<button id="btn-edit" onclick="dtl_pesan('<?php echo $data[0]; ?>')">Detail</button>
-			</td>
 		</tr>
 	<?php } ?>
 	</tbody>

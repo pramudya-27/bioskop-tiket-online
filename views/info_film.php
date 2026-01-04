@@ -12,8 +12,18 @@
 	$char = "PMSN";
 	$newid = $char . sprintf("%05s",$nu);
 
-	$qi = $proses->tampil("*","film,tiket,ruang,jadwal","WHERE film.id_film ='$_GET[id]' AND film.id_film = tiket.id_film AND film.id_jadwal = jadwal.id_jadwal AND jadwal.id_ruang = ruang.id_ruang");
+	$qi = $proses->tampil("*","film,tiket,ruang,jadwal,sesi","WHERE film.id_film ='$_GET[id]' AND film.id_film = tiket.id_film AND film.id_jadwal = jadwal.id_jadwal AND jadwal.id_ruang = ruang.id_ruang AND jadwal.id_sesi = sesi.id_sesi");
 	$di = $qi->fetch();
+
+// --- PERBAIKAN MULAI ---
+// Jika data tidak ditemukan (misal: Film ada tapi Jadwal belum diinput), kita stop di sini.
+	if (!$di) {
+    echo "<script>
+            alert('Maaf, data film ini belum lengkap (Jadwal/Tiket belum tersedia). Silakan pilih film lain.');
+            window.location = '../index.php'; 
+          </script>";
+    exit; // PENTING: exit menghentikan halaman agar kode error di bawahnya tidak dijalankan
+}
 
 	if (isset($_SESSION['id'])) {
 		$hidden = "hidden";
@@ -165,7 +175,7 @@
 														<td><?php echo $dt2['genre']; ?></td>
 														<td>No Kursi : <?php echo $dt2['kursi']; ?></td>
 														<td>Rp. <?php echo number_format($dt2['harga'],2,",","."); ?></td>
-														<td><a href="../models/h_dtl_pesan.php?id=<?php echo $dt2['id_dtl_pemesan']; ?>"><span class="label label-danger">DELET</span></a></td>
+														<td><a href="../models/h_dtl_pesan.php?id=<?php echo $dt2['id_dtl_pemesan']; ?>" class="btn btn-danger btn-sm">DELETE</a></td>
 													</tr>
 													
 												<?php } ?>
@@ -174,9 +184,11 @@
 													<input type="hidden" name="id_member" value="<?php echo $_SESSION['id']; ?>">
 													<input type="hidden" name="jm_tiket" value="<?php echo $row1; ?>">
 													<input type="hidden" name="t_harga" value="<?php echo $dt3[0]; ?>">
+												<?php if ($row1 > 0) { ?>
 												<div class="tp" style="width: 100px;">
-													<input type="submit" value="Beli">
+													<input type="submit" value="Beli" class="btn btn-success btn-block">
 												</div>
+												<?php } ?>
 											</form>
 										</div>
 									</div>
@@ -209,7 +221,7 @@
 
 								</ul>
 						</div>
-								<button style="padding: 5px 18px;border:1px;background-color: #000;color:#fff;text-transform: uppercase;float: right;font-size: 15px;" data-toggle="modal" data-target="#kranjang" <?php echo $akun; ?> >Kranjang</button>
+								<button style="padding: 5px 18px;border:1px;background-color: #000;color:#fff;text-transform: uppercase;float: right;font-size: 15px;" data-toggle="modal" data-target="#kranjang" <?php echo $akun; ?> >Keranjang</button>
 						
 				</div>
 			</div>
@@ -289,7 +301,30 @@
 											<form action="../models/s_dtl_pesan.php" method="post">
 												<input type="hidden" name="tiket" value="<?php echo $di['id_tiket']; ?>">
 												<input type="hidden" name="pemesan" value="<?php echo $newid; ?>">
-												<input type="number" name="kursi" placeholder="Pilih No Kursi" min="0" max="<?php echo $di['jm_kursi']; ?>" class="number" required>
+												
+												<div class="form-group">
+													<label>Pilih Tanggal</label>
+													<input type="text" name="tgl_tayang" id="datepicker_film" class="number" placeholder="Pilih Tanggal" required>
+												</div>
+
+												<div class="form-group">
+													<label>Pilih Sesi</label>
+													<select name="sesi" class="number" required>
+														<?php 
+															$q_sesi = $proses->tampil("*", "sesi", "ORDER BY mulai ASC");
+															foreach ($q_sesi as $s) {
+														?>
+														<option value="<?php echo $s['id_sesi']; ?>">
+															<?php echo $s['mulai'] . ' - ' . $s['selesai']; ?>
+														</option>
+														<?php } ?>
+													</select>
+												</div>
+
+												<div class="form-group">
+													<label>Jumlah Kursi</label>
+													<input type="number" name="kursi" placeholder="Pilih No Kursi" min="0" max="<?php echo $di['jm_kursi']; ?>" class="number" required>
+												</div>
 												<div class="tp" style="width: 100px;">
 													<input type="submit" value="ADD">
 												</div>
@@ -523,6 +558,16 @@ fit: true
 <script type="text/javascript" src="../assets/js/jquery-ui.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$("#tgl_lahir").datepicker({dateFormat:"yy/mm/dd",changeYear:true,changeMonth:true,yearRange:"-50:"})
+		$("#tgl_lahir").datepicker({dateFormat:"yy/mm/dd",changeYear:true,changeMonth:true,yearRange:"-50:"});
+
+		// Config datepicker for film
+		var minDate = new Date("<?php echo $di['tgl_mulai']; ?>");
+		var maxDate = new Date("<?php echo $di['tgl_berhenti']; ?>");
+		
+		$("#datepicker_film").datepicker({
+			dateFormat: "yy-mm-dd",
+			minDate: minDate,
+			maxDate: maxDate
+		});
 	})
 </script>

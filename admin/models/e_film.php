@@ -9,6 +9,7 @@
 							rating = '$_POST[rating]',
 							durasi = '$_POST[durasi]',
 							id_jadwal = '$_POST[jadwal]',
+							id_tiket = '$_POST[id_tiket]',
 							sinopsis = '$_POST[sinopsis]',
 							score = '$_POST[score]',
 							rilis = '$_POST[rilis]'","id_film = '$_POST[id]' ");
@@ -20,6 +21,7 @@
 								rating = '$_POST[rating]',
 								durasi = '$_POST[durasi]',
 								id_jadwal = '$_POST[jadwal]',
+								id_tiket = '$_POST[id_tiket]',
 								sinopsis = '$_POST[sinopsis]',
 								score = '$_POST[score]',
 								rilis = '$_POST[rilis]',

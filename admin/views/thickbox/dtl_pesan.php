@@ -32,7 +32,7 @@
 			<?php } ?>
 		</table>
 		<button style="padding: 8px 0px;width: 80px;background-color: #37846c;border:1px;cursor: pointer;color: #fff;
-		margin-top: 20px;" onclick="bayar('<?php echo $data['id_pemesan']; ?>')">Bayar</button>
+		margin-top: 20px;" onclick="bayar('<?php echo $_GET['id']; ?>')">Sudah Bayar</button>
 	</div>
 </div>
 <style type="text/css">
