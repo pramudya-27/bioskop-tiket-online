@@ -77,7 +77,6 @@ INSERT INTO `dtl_pemesan` (`id_dtl_pemesan`, `kursi`, `id_tiket`, `id_pemesan`) 
 CREATE TABLE `film` (
   `id_film` int NOT NULL,
   `judul` varchar(40) NOT NULL,
-  `genre` varchar(40) NOT NULL,
   `rating` varchar(5) NOT NULL,
   `durasi` time NOT NULL,
   `id_jadwal` varchar(10) NOT NULL,

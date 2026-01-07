@@ -33,9 +33,6 @@
 			<p>Judul Film</p>
 			<input type="text" name="judul" value="<?php echo $data[1]; ?>" required>
 
-			<p>Genre</p>
-			<input type="text" name="genre" value="<?php echo $data[2]; ?>" required>
-
 			<p>Durasi</p>
 			<input type="time" name="durasi" placeholder="HH:MM" value="<?php echo $data['durasi']; ?>" required>
 

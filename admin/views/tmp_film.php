@@ -6,7 +6,6 @@
 		<tr>
 			<th>ID Film</th>
 			<th>Judul</th>
-			<th>Genre</th>
 			<th>Rating</th>
 			<th>Durasi</th>
 			<th>ID Jadwal</th>
@@ -26,7 +25,6 @@
 		<tr>
 			<td width="70"><?php echo $data[0]; ?></td>
 			<td><?php echo $data[1]; ?></td>
-			<td><?php echo substr($data['genre'] ?? '',0,10);?>...</td>
 			<td><?php echo $data[3]; ?></td>
 			<td><?php echo substr($data['durasi'] ?? '', 0,5); ?></td>
 			<td><?php echo $data[5]; ?></td>
