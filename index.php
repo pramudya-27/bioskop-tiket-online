@@ -80,45 +80,6 @@
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
 							<li class="active"><a href="index.php">Home</a></li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Genre <b class="caret"></b></a>
-								<ul class="dropdown-menu multi-column columns-3">
-									<li>
-									<div class="col-sm-4">
-										<ul class="multi-column-dropdown">
-											<li><a href="#">Action</a></li>
-											<li><a href="#">Biography</a></li>
-											<li><a href="#">Crime</a></li>
-											<li><a href="#">Family</a></li>
-											<li><a href="#">Horror</a></li>
-											<li><a href="#">Romance</a></li>
-											<li><a href="#">Sports</a></li>
-											<li><a href="#">War</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-4">
-										<ul class="multi-column-dropdown">
-											<li><a href="#">Adventure</a></li>
-											<li><a href="#">Comedy</a></li>
-											<li><a href="#">Documentary</a></li>
-											<li><a href="#">Fantasy</a></li>
-											<li><a href="#">Thriller</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-4">
-										<ul class="multi-column-dropdown">
-											<li><a href="#">Animation</a></li>
-											<li><a href="#">Costume</a></li>
-											<li><a href="#">Drama</a></li>
-											<li><a href="#">History</a></li>
-											<li><a href="#">Musical</a></li>
-											<li><a href="#">Psychological</a></li>
-										</ul>
-									</div>
-									<div class="clearfix"></div>
-									</li>
-								</ul>
-							</li>
 							<li><a href="#">A - z list</a></li>
 						</ul>
 
@@ -209,7 +170,6 @@
 														<td><?php echo $no++; ?></td>
 														<td><?php echo $dt2['judul']; ?></td>
 														<td><?php echo $dt2['rilis']; ?></td>
-														<td><?php echo $dt2['genre']; ?></td>
 													<td>No Kursi : <?php echo $dt2['kursi']; ?></td>
 														<td>Rp. <?php echo number_format($dt2['harga'],2,",","."); ?></td>
 														<td>

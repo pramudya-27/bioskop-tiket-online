@@ -5,7 +5,6 @@
 
 	if (empty($foto)) {
 		$proses->edit("film","	judul = '$_POST[judul]',
-							genre = '$_POST[genre]',
 							rating = '$_POST[rating]',
 							durasi = '$_POST[durasi]',
 							id_jadwal = '$_POST[jadwal]',
@@ -17,7 +16,6 @@
 	}else{
 		move_uploaded_file($alamat, '../assets/img/film/'.$foto);
 		$proses->edit("film","	judul = '$_POST[judul]',
-								genre = '$_POST[genre]',
 								rating = '$_POST[rating]',
 								durasi = '$_POST[durasi]',
 								id_jadwal = '$_POST[jadwal]',

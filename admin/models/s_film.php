@@ -4,9 +4,8 @@
 		$alamat = $_FILES['gambar']['tmp_name'];
 
 		move_uploaded_file($alamat, '../assets/img/film/'.$foto);
-		$proses->simpan("film (judul, genre, rating, durasi, id_jadwal, id_tiket, sinopsis, score, rilis, gambar)","
+		$proses->simpan("film (judul, rating, durasi, id_jadwal, id_tiket, sinopsis, score, rilis, gambar)","
 								'$_POST[judul]',
-								'$_POST[genre]',
 								'$_POST[rating]',
 								'$_POST[durasi]',
 								'$_POST[jadwal]',
