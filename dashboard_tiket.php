@@ -105,7 +105,7 @@
 								JOIN jadwal ON film.id_jadwal = jadwal.id_jadwal
 								JOIN sesi ON jadwal.id_sesi = sesi.id_sesi
 								LEFT JOIN sesi as sesi_pilih ON dtl_pemesan.id_sesi = sesi_pilih.id_sesi",
-								"WHERE pemesan.id_member = '$id_member' AND pemesan.status = '2' AND jadwal.tgl_mulai >= '$today' ORDER BY jadwal.tgl_mulai ASC, sesi.mulai ASC");
+								"WHERE pemesan.id_member = '$id_member' AND pemesan.status = '2' AND dtl_pemesan.tgl_tayang >= '$today' ORDER BY dtl_pemesan.tgl_tayang ASC, sesi.mulai ASC");
 							
 							$no = 1;
 							foreach ($sql_aktif as $row) {

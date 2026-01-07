@@ -1,8 +1,14 @@
 <?php 
 	include_once "../../config/crud.php";
- 	$sql = $proses->tampil("*, sesi_pilih.mulai as jam_pilih","tiket,dtl_pemesan,film,jadwal,ruang,sesi 
- 		LEFT JOIN sesi as sesi_pilih ON dtl_pemesan.id_sesi = sesi_pilih.id_sesi",
- 		"WHERE dtl_pemesan.id_dtl_pemesan = '$_GET[id]' AND dtl_pemesan.id_tiket = tiket.id_tiket AND tiket.id_film = film.id_film AND film.id_jadwal = jadwal.id_jadwal AND jadwal.id_sesi = sesi.id_sesi AND jadwal.id_ruang = ruang.id_ruang ");
+	$sql = $proses->tampil("*, sesi_pilih.mulai as jam_pilih",
+		"dtl_pemesan 
+		JOIN tiket ON dtl_pemesan.id_tiket = tiket.id_tiket 
+		JOIN film ON tiket.id_film = film.id_film 
+		JOIN jadwal ON film.id_jadwal = jadwal.id_jadwal 
+		JOIN ruang ON jadwal.id_ruang = ruang.id_ruang 
+		JOIN sesi ON jadwal.id_sesi = sesi.id_sesi 
+		LEFT JOIN sesi as sesi_pilih ON dtl_pemesan.id_sesi = sesi_pilih.id_sesi",
+		"WHERE dtl_pemesan.id_dtl_pemesan = '$_GET[id]'");
 	$dt = $sql->fetch();
  ?>
  <!DOCTYPE html>
