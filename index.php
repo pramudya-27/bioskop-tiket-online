@@ -74,7 +74,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<h1><a  href="index.php"><span>M</span>ovies <span>M</span>ania</a></h1>
+						<h1><a  href="index.php"><span>I</span>tpln <span>M</span>ovies</a></h1>
 					</div>
 					<!-- navbar-header -->
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
