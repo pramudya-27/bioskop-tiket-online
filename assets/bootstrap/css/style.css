@@ -464,7 +464,7 @@ span.simply-word {
 a.w3_play_icon1 {
 	border: none;
     outline: none;
-    background: #3f82fe;
+    background: #fe423f;
     padding: 0.7em 1em 0.7em 1em;
     color: #fff;
     text-transform: uppercase;
@@ -484,7 +484,7 @@ a.w3_play_icon1:hover {
 /*-- /banner-bottom --*/
 .w3_agilits_banner_bootm {
        padding: 1em 0 2.3em 0;
-    background: #fe423f;
+    background: #3fa8fe;
 }
 .w3_agilits_inner_bottom {
     margin: 0 auto;
