@@ -432,13 +432,13 @@ ul.dropdown-menu.multi-column ul li a:hover{
 .baner-info h3 {
     text-align: center;
     font-size: 3.5em;
-    color: #fff;
+    color: red;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 4px;
 }
 .baner-info h3 span {
-	color:#02a388;
+	color:#021fa3;
 }
 .baner-info h4{
        text-align: center;
@@ -967,9 +967,10 @@ h3.agile_w3_title span {
     width: 19%!important;
 	padding:0;
 }
-.w3l-movie-gride-agile.requested-movies:nth-child (5),.w3l-movie-gride-agile.requested-movies:nth-child (10){
+.w3l-movie-gride-agile.requested-movies:nth-child(5),.w3l-movie-gride-agile.requested-movies:nth-child(10){
 	margin-right:0;
 }
+
 .w3l-movie-gride-agile.requested-movies img{
 
     width:100%;
@@ -1221,7 +1222,7 @@ ul.w3l-sider-list li i{
 	border: none;
 	border-radius: 0;
 	background: #f0f0f0;
-	color: #aaa;=
+	color: #aaa;
 	-webkit-appearance: none; /* for box shadows to show on iOS */
 }
 
