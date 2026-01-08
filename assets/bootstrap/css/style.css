@@ -143,6 +143,7 @@ ul.nav.navbar-nav {
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
     color:red;
    background:none!important;
+   position: right;
 }
 .navbar-nav > li {
   margin: 0 0.3em;
