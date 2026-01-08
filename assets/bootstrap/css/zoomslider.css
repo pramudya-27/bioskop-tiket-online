@@ -34,8 +34,8 @@
     border-radius: 0;
 		}
 		.zs-enabled .zs-slideshow .zs-bullets .zs-bullet.active {
-			background:yellow;
-			border: 2px solid yellow;
+			background:blue;
+			border: 2px solid blue;
 		}
       #demo-1 {
 			position: relative; 
