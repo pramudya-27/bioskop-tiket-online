@@ -125,7 +125,7 @@ input[type="submit"],.w3l_header_left ul li a,.related-post-right h4 a,.comments
 		    font-weight: bold;
 }
 h1 span {
-       color: #021fa3;
+       color: rgb(246, 246, 66);
     font-size: 1.5em;
 }
 /*-- //logo --*/
@@ -141,7 +141,7 @@ ul.nav.navbar-nav {
     min-height: inherit;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-    color:red;
+    color:white;
    background:none!important;
 }
 .navbar-nav > li {
