@@ -21,7 +21,7 @@
  		<th>Harga</th>
  	</tr>
  	<?php
- 		$sql = $proses->tampil("*","dtl_pemesan,pemesan,tiket,member","WHERE pemesan.tgl_pesan BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]' AND dtl_pemesan.id_pemesan = pemesan.id_pemesan AND tiket.id_tiket = dtl_pemesan.id_tiket AND member.id_member = pemesan.id_member AND pemesan.status = '1'");
+ 		$sql = $proses->tampil("*","dtl_pemesan,pemesan,tiket,member","WHERE pemesan.tgl_pesan BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]' AND dtl_pemesan.id_pemesan = pemesan.id_pemesan AND tiket.id_tiket = dtl_pemesan.id_tiket AND member.id_member = pemesan.id_member AND pemesan.status = '2'");
  		$no = 1;
 		foreach ($sql as $data) {
  	 ?>
@@ -35,7 +35,7 @@
  <?php } ?>
  </table>
  <?php 
- 	$sql1 = $proses->tampil("SUM(tiket.harga)","tiket,dtl_pemesan,pemesan","WHERE pemesan.tgl_pesan BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]' AND dtl_pemesan.id_pemesan = pemesan.id_pemesan AND tiket.id_tiket = dtl_pemesan.id_tiket AND pemesan.status = '1' ");
+ 	$sql1 = $proses->tampil("SUM(tiket.harga)","tiket,dtl_pemesan,pemesan","WHERE pemesan.tgl_pesan BETWEEN '$_GET[tgl1]' AND '$_GET[tgl2]' AND dtl_pemesan.id_pemesan = pemesan.id_pemesan AND tiket.id_tiket = dtl_pemesan.id_tiket AND pemesan.status = '2' ");
  	$dt1 = $sql1->fetch();
   ?>
  <table class="tb_isi" cellspacing="0" border="1">
@@ -84,7 +84,7 @@
  	}
 </style>
  <script type="text/javascript">
- 	window.load=cetak();
+ 	window.onload = cetak;
  	function cetak() {
  		window.print();
  	}
