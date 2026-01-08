@@ -30,7 +30,6 @@
 <title>Itpln Movies</title>
 
 <link rel="stylesheet" type="text/css" href="assets/css/film.css">
-<link rel="stylesheet" href="./assets/bootstrap/style.css">
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -120,6 +119,7 @@
 									</li>
 								</ul>
 							</li>
+							<li><a href="#">A - z list</a></li>
 						</ul>
 
 					</div>
@@ -298,7 +298,7 @@
 			</div>
 				
 			<div class="w3agile_footer_copy" >
-				    <p>© 2025 Movies Mania. All rights reserved | Design by CREATE TABLE KELOMPOK</a></p>
+				    <p>© 2026 Itpln Movies. All rights reserved | Design by CREATE TABLE </a></p>
 			</div>
 		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 
