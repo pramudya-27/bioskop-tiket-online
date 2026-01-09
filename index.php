@@ -27,13 +27,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Movies Mania</title>
+<title>Itpln Movies</title>
 
 <link rel="stylesheet" type="text/css" href="assets/css/film.css">
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Movies Mania" />
+<meta name="keywords" content="Itpln Movies" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->

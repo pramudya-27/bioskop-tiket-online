@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Dashboard Tiket - Movies Mania</title>
+	<title>Dashboard Tiket - Itpln Movies</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
@@ -43,7 +43,7 @@
 			font-weight: 600;
 		}
 		.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
-			color: #fe423f;
+			color: #3f8ffeff;
 		}
 		.table th {
 			background-color: #333;
@@ -51,7 +51,7 @@
 		}
 		.page-header h1 {
 			margin-top: 0;
-			border-bottom: 2px solid #fe423f;
+			border-bottom: 2px solid #3f8ffeff;
 			display: inline-block;
 			padding-bottom: 10px;
 		}
