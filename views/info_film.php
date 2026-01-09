@@ -270,14 +270,9 @@
 												<div class="form-group">
 													<label>Pilih Sesi</label>
 													<select name="sesi" class="number" required>
-														<?php 
-															$q_sesi = $proses->tampil("*", "sesi", "ORDER BY mulai ASC");
-															foreach ($q_sesi as $s) {
-														?>
-														<option value="<?php echo $s['id_sesi']; ?>">
-															<?php echo $s['mulai'] . ' - ' . $s['selesai']; ?>
+														<option value="<?php echo $di['id_sesi']; ?>">
+															<?php echo $di['mulai'] . ' - ' . $di['selesai']; ?>
 														</option>
-														<?php } ?>
 													</select>
 												</div>
 
