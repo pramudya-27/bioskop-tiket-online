@@ -34,8 +34,8 @@
     border-radius: 0;
 		}
 		.zs-enabled .zs-slideshow .zs-bullets .zs-bullet.active {
-			background:#02a388;
-			border: 2px solid #02a388;
+			background:rgb(246, 246, 66);
+			border: 2px solid rgb(246, 246, 66);
 		}
       #demo-1 {
 			position: relative; 

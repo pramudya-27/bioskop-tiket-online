@@ -113,7 +113,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4>Daftar Blanja</h4>
+										<h4>Daftar Belanja</h4>
 										<div class="login-form">
 											<form action="../models/s_pesan.php" method="post">
 												<table class="table">

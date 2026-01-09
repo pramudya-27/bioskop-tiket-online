@@ -125,7 +125,7 @@ input[type="submit"],.w3l_header_left ul li a,.related-post-right h4 a,.comments
 		    font-weight: bold;
 }
 h1 span {
-       color: #E50914;
+       color: rgb(246, 246, 66);
     font-size: 1.5em;
 }
 /*-- //logo --*/
@@ -141,7 +141,7 @@ ul.nav.navbar-nav {
     min-height: inherit;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-    color: #fe423f;
+    color:white;
    background:none!important;
 }
 .navbar-nav > li {
@@ -161,7 +161,7 @@ ul.nav.navbar-nav.navbar-right {
 	color:#fff;
 }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus,.navbar-default .navbar-nav li a.active {
-    color: #fe423f;
+    color:#021fa3;
 	background:none!important;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
@@ -438,7 +438,7 @@ ul.dropdown-menu.multi-column ul li a:hover{
     letter-spacing: 4px;
 }
 .baner-info h3 span {
-	color:#02a388;
+	color:#5876fd;
 }
 .baner-info h4{
        text-align: center;
@@ -484,7 +484,7 @@ a.w3_play_icon1:hover {
 /*-- /banner-bottom --*/
 .w3_agilits_banner_bootm {
        padding: 1em 0 2.3em 0;
-    background: #fe423f;
+    background: #3fa8fe;
 }
 .w3_agilits_inner_bottom {
     margin: 0 auto;
@@ -1358,7 +1358,7 @@ ul.w3l-sider-list li i{
 }
 .w3agile_footer_copy {
     padding: 1em 0;
-	background: #02a388;
+	background: #3fa8fe;
 }
 #contact h2 {
     text-align: center;
