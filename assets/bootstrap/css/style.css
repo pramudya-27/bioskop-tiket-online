@@ -125,7 +125,7 @@ input[type="submit"],.w3l_header_left ul li a,.related-post-right h4 a,.comments
 		    font-weight: bold;
 }
 h1 span {
-       color: rgb(246, 246, 66);
+       color: #ffd500;
     font-size: 1.5em;
 }
 /*-- //logo --*/
@@ -484,7 +484,7 @@ a.w3_play_icon1:hover {
 /*-- /banner-bottom --*/
 .w3_agilits_banner_bootm {
        padding: 1em 0 2.3em 0;
-    background: #3fa8fe;
+    background: #ffd500;
 }
 .w3_agilits_inner_bottom {
     margin: 0 auto;

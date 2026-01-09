@@ -81,7 +81,6 @@
 							<ul class="nav navbar-nav">
 							<li class="active"><a href="index.php">Home</a></li>
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Genre <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
 									<li>
 									<div class="col-sm-4">
@@ -119,7 +118,6 @@
 									</li>
 								</ul>
 							</li>
-							<li><a href="#">A - z list</a></li>
 						</ul>
 
 					</div>
