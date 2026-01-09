@@ -82,45 +82,6 @@
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
 							<li><a href="../index.php">Home</a></li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Genre <b class="caret"></b></a>
-								<ul class="dropdown-menu multi-column columns-3">
-									<li>
-									<div class="col-sm-4">
-										<ul class="multi-column-dropdown">
-											<li><a href="#">Action</a></li>
-											<li><a href="#">Biography</a></li>
-											<li><a href="#">Crime</a></li>
-											<li><a href="#">Family</a></li>
-											<li><a href="#">Horror</a></li>
-											<li><a href="#">Romance</a></li>
-											<li><a href="#">Sports</a></li>
-											<li><a href="#">War</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-4">
-										<ul class="multi-column-dropdown">
-											<li><a href="#">Adventure</a></li>
-											<li><a href="#">Comedy</a></li>
-											<li><a href="#">Documentary</a></li>
-											<li><a href="#">Fantasy</a></li>
-											<li><a href="#">Thriller</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-4">
-										<ul class="multi-column-dropdown">
-											<li><a href="#">Animation</a></li>
-											<li><a href="#">Costume</a></li>
-											<li><a href="#">Drama</a></li>
-											<li><a href="#">History</a></li>
-											<li><a href="#">Musical</a></li>
-											<li><a href="#">Psychological</a></li>
-										</ul>
-									</div>
-									<div class="clearfix"></div>
-									</li>
-								</ul>
-							</li>
 								<li><a href="#" >A - z list</a></li>
 						</ul>
 
@@ -152,7 +113,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4>Daftar Blanja</h4>
+										<h4>Daftar Belanja</h4>
 										<div class="login-form">
 											<form action="../models/s_pesan.php" method="post">
 												<table class="table">
@@ -171,8 +132,7 @@
 													<tr>
 														<td><?php echo $no++; ?></td>
 														<td><?php echo $dt2['judul']; ?></td>
-														<td><?php echo $dt2['rilis']; ?></td>
-														<td><?php echo $dt2['genre']; ?></td>
+														<td><?php echo $dt2['rilis']; ?></td>														<td>No Kursi : <?php echo $dt2['kursi']; ?></td>
 														<td>No Kursi : <?php echo $dt2['kursi']; ?></td>
 														<td>Rp. <?php echo number_format($dt2['harga'],2,",","."); ?></td>
 														<td><a href="../models/h_dtl_pesan.php?id=<?php echo $dt2['id_dtl_pemesan']; ?>" class="btn btn-danger btn-sm">DELETE</a></td>
@@ -310,14 +270,9 @@
 												<div class="form-group">
 													<label>Pilih Sesi</label>
 													<select name="sesi" class="number" required>
-														<?php 
-															$q_sesi = $proses->tampil("*", "sesi", "ORDER BY mulai ASC");
-															foreach ($q_sesi as $s) {
-														?>
-														<option value="<?php echo $s['id_sesi']; ?>">
-															<?php echo $s['mulai'] . ' - ' . $s['selesai']; ?>
+														<option value="<?php echo $di['id_sesi']; ?>">
+															<?php echo $di['mulai'] . ' - ' . $di['selesai']; ?>
 														</option>
-														<?php } ?>
 													</select>
 												</div>
 
@@ -353,7 +308,6 @@
 									</div>
 										<div class="info">
 											<h4 style="font-size: 30px; margin: 0px;"><?php echo $di['judul']; ?></h4>
-											<p style="padding: 4px;border:1px solid #eee;font-size: 12px;">Genre : <?php echo $di['genre']; ?> | Rating : <?php echo $di['rating']; ?> | Score : <?php echo $di['score']; ?></p>
 											<p class="bar-kusus"><?php echo substr($di['durasi'],0,5); ?> | Rp.<?php echo number_format($di['harga'],2,",","."); ?> | <?php echo date('d F Y', strtotime($di['tgl_mulai'])); ?> - <?php echo date('d F Y', strtotime($di['tgl_berhenti'])); ?></p>
 											<fieldset>
 												<legend>Summary</legend>
