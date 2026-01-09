@@ -36,7 +36,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Movies Place</title>
+<title><?php echo $di['judul']; ?></title>
 <link rel="stylesheet" type="text/css" href="../assets/css/film.css">
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,7 +76,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<h1><a  href="../index.php"><span>M</span>ovies <span>P</span>lace</a></h1>
+						<h1><a  href="../index.php"><span>I</span>tpln <span>M</span>ovies</a></h1>
 					</div>
 					<!-- navbar-header -->
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -347,7 +347,7 @@
 
 	<!--/footer-bottom-->
 			<div class="w3agile_footer_copy">
-				    <p>© 2017 Movies Pro. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+				    <p>© 2026 Itpln Movies. All rights reserved | Design by CREATE TABLE </a></p>
 			</div>
 		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 

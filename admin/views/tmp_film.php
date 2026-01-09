@@ -23,13 +23,11 @@
 		foreach($sql as $data) {
 	?>
 		<tr>
-			<td width="70"><?php echo $data[0]; ?></td>
-			<td><?php echo $data[1]; ?></td>
-<<<<<<< HEAD
-			<td><?php echo $data[3]; ?></td>
-=======
+			<td width="70"><?php echo $data['id_film']; ?></td>
+			<td><?php echo $data['judul']; ?></td>
+
 			<td><?php echo $data['rating']; ?></td>
->>>>>>> fe-admin
+
 			<td><?php echo substr($data['durasi'] ?? '', 0,5); ?></td>
 			<td><?php echo $data['id_jadwal']; ?></td>
 			<td><?php echo isset($data['id_tiket']) ? $data['id_tiket'] : '-'; ?></td>

@@ -4,7 +4,7 @@
 		<div id="owl-demo" class="owl-carousel owl-theme">
 
 		<?php
-			$sql = $proses->tampil("*","film","ORDER BY score DESC"); 
+			$sql = $proses->tampil("*","film","WHERE score > 7 ORDER BY score DESC"); 
 			foreach ($sql as $data) {
  		?>	
 		<div class="item">
@@ -34,7 +34,7 @@
 				<!--/requested-movies-->
 <div class="wthree_agile-requested-movies">
 	<?php
-		$qr = $proses->tampil("*","film",""); 
+		$qr = $proses->tampil("*","film","WHERE score <= 7"); 
 		foreach ($qr as $dt) {
  	?>	
 	<div class="col-md-2 w3l-movie-gride-agile requested-movies">

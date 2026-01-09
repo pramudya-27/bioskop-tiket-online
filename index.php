@@ -79,8 +79,8 @@
 					<!-- navbar-header -->
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
-							<li class="active"><a href="index.php">Home</a></li>
-							<li><a href="#">A - z list</a></li>
+						<li class="active"><a href="index.php">Home</a></li>
+							<li><a href="index.php?p=az_list">A - z list</a></li>
 						</ul>
 
 					</div>
@@ -93,8 +93,9 @@
 										</ul> <!-- cd-header-buttons -->
 									</div>
 									<div id="cd-search" class="cd-search">
-										<form action="#" method="post">
-											<input name="Search" type="search" placeholder="Search...">
+										<form action="index.php" method="GET">
+											<input type="hidden" name="p" value="pencarian">
+											<input name="q" type="search" placeholder="Search...">
 										</form>
 									</div>
 								</div>
