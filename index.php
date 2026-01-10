@@ -164,7 +164,7 @@
 
 												 	$no = "1";
 
-													$sql2 = $proses->tampil("*","film,tiket,dtl_pemesan","WHERE film.id_film = tiket.id_film AND tiket.id_tiket = dtl_pemesan.id_tiket AND dtl_pemesan.id_pemesan = '$newid'");
+													$sql2 = $proses->tampil("*","film,tiket,dtl_pemesan","WHERE film.id_tiket = tiket.id_tiket AND tiket.id_tiket = dtl_pemesan.id_tiket AND dtl_pemesan.id_pemesan = '$newid'");
 													foreach ($sql2 as $dt2) {
 												 ?>
 													<tr>

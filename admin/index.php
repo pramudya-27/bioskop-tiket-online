@@ -73,7 +73,7 @@
 	</div>
 </body>
 </html>
-<script type="text/javascript" src="models/js/proses.js"></script>
+<script type="text/javascript" src="models/js/proses.js?v=4"></script>
 <script type="text/javascript" src="assets/js/jquery.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui.js"></script>
 <script type="text/javascript" src="assets/js/function.js"></script>

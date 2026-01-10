@@ -1,13 +1,12 @@
 <?php 
 	include_once "../../config/crud.php";
-	$sql = $proses->tampil("*, sesi_pilih.mulai as jam_pilih",
+	$sql = $proses->tampil("*, ruang.nama as nama_ruang",
 		"dtl_pemesan 
 		JOIN tiket ON dtl_pemesan.id_tiket = tiket.id_tiket 
-		JOIN film ON tiket.id_film = film.id_film 
-		JOIN jadwal ON film.id_jadwal = jadwal.id_jadwal 
-		JOIN ruang ON jadwal.id_ruang = ruang.id_ruang 
-		JOIN sesi ON jadwal.id_sesi = sesi.id_sesi 
-		LEFT JOIN sesi as sesi_pilih ON dtl_pemesan.id_sesi = sesi_pilih.id_sesi",
+		JOIN film ON film.id_tiket = tiket.id_tiket 
+		JOIN sesi ON dtl_pemesan.id_sesi = sesi.id_sesi
+		LEFT JOIN jadwal ON (jadwal.id_film = film.id_film AND jadwal.id_sesi = dtl_pemesan.id_sesi)
+		LEFT JOIN ruang ON jadwal.id_ruang = ruang.id_ruang",
 		"WHERE dtl_pemesan.id_dtl_pemesan = '$_GET[id]'");
 	$dt = $sql->fetch();
  ?>
@@ -27,12 +26,12 @@
  				<tr>
  					<td>DATE</td>
  					<td>:</td>
- 					<td id="font"><?php echo date("d F Y",strtotime($dt['tgl_tayang'] ? $dt['tgl_tayang'] : $dt['tgl_mulai'])); ?></td>
+ 					<td id="font"><?php echo date("d F Y",strtotime($dt['tgl_tayang'])); ?></td>
  				</tr>
  				<tr>
  					<td>TIME</td>
  					<td>:</td>
- 					<td id="font"><?php echo substr($dt['jam_pilih'] ? $dt['jam_pilih'] : $dt['mulai'], 0,5) ?></td>
+ 					<td id="font"><?php echo substr($dt['mulai'], 0,5) ?></td>
  				</tr>
  				<tr>
  					<td>KURSI</td>
@@ -47,7 +46,7 @@
  			</table>	
  		</div>
  		<div class="sesi">
- 			<h1><?php echo $dt['sesi']; ?></h1>
+ 			<h1><?php echo $dt['nama_ruang']; ?></h1>
  		</div>
  	</div>
  </body>

@@ -1,6 +1,7 @@
 <?php 
 	include '../config/crud.php';
 	$proses->edit("jadwal","
+							id_film='$_POST[film]',
 							tgl_mulai='$_POST[mulai]',
 							tgl_berhenti='$_POST[selesai]',
 							id_sesi='$_POST[sesi]',

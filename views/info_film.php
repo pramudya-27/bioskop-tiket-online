@@ -5,25 +5,54 @@
 	$sql4 = $proses->tampil("MAX(id_pemesan) as kode","pemesan","");
 	$dt4 = $sql4->fetch();
 	$kode = $dt4['kode'];
-
-	$nu = (int) substr($kode, 4,5);
+    
+    if ($kode) {
+	    $nu = (int) substr($kode, 4,5);
+    } else {
+        $nu = 0;
+    }
 	$nu++;
 
 	$char = "PMSN";
 	$newid = $char . sprintf("%05s",$nu);
 
-	$qi = $proses->tampil("*","film,tiket,ruang,jadwal,sesi","WHERE film.id_film ='$_GET[id]' AND film.id_film = tiket.id_film AND film.id_jadwal = jadwal.id_jadwal AND jadwal.id_ruang = ruang.id_ruang AND jadwal.id_sesi = sesi.id_sesi");
+    // 1. Fetch Film & Tiket
+	$qi = $proses->tampil("film.*, tiket.id_tiket, tiket.harga, tiket.stok","film,tiket","WHERE film.id_film ='$_GET[id]' AND film.id_tiket = tiket.id_tiket");
 	$di = $qi->fetch();
 
-// --- PERBAIKAN MULAI ---
-// Jika data tidak ditemukan (misal: Film ada tapi Jadwal belum diinput), kita stop di sini.
 	if (!$di) {
-    echo "<script>
-            alert('Maaf, data film ini belum lengkap (Jadwal/Tiket belum tersedia). Silakan pilih film lain.');
-            window.location = '../index.php'; 
-          </script>";
-    exit; // PENTING: exit menghentikan halaman agar kode error di bawahnya tidak dijalankan
-}
+        echo "<script>alert('Data film belum lengkap!'); window.location='../index.php';</script>";
+        exit;
+    }
+
+    // 2. Fetch All Schedules (Jadwal) for this film
+    // Join with Sesi and Ruang to get times and capacity
+    $q_jadwal = $proses->tampil("jadwal.*, sesi.sesi as nama_sesi, sesi.mulai, sesi.selesai, ruang.jm_kursi", 
+                                "jadwal, sesi, ruang", 
+                                "WHERE jadwal.id_film = '$_GET[id]' AND jadwal.id_sesi = sesi.id_sesi AND jadwal.id_ruang = ruang.id_ruang");
+    
+    $schedules = [];
+    $min_date = null;
+    $max_date = null;
+
+    // Use fetchAll if available, or loop
+    // connect is PDO.
+    while ($row = $q_jadwal->fetch(PDO::FETCH_ASSOC)) {
+        $schedules[] = $row;
+        
+        // Calculate global min/max date
+        $start = $row['tgl_mulai'];
+        $end = $row['tgl_berhenti'];
+        
+        if ($min_date === null || $start < $min_date) $min_date = $start;
+        if ($max_date === null || $end > $max_date) $max_date = $end;
+    }
+    
+    // If no schedules found
+    if (empty($schedules)) {
+         echo "<script>alert('Belum ada jadwal untuk film ini.'); window.location='../index.php';</script>";
+         exit;
+    }
 
 	if (isset($_SESSION['id'])) {
 		$hidden = "hidden";
@@ -126,7 +155,7 @@
 
 												 	$no = "1";
 
-													$sql2 = $proses->tampil("*","film,tiket,dtl_pemesan","WHERE film.id_film = tiket.id_film AND tiket.id_tiket = dtl_pemesan.id_tiket AND dtl_pemesan.id_pemesan = '$newid'");
+													$sql2 = $proses->tampil("*","film,tiket,dtl_pemesan","WHERE film.id_tiket = tiket.id_tiket AND tiket.id_tiket = dtl_pemesan.id_tiket AND dtl_pemesan.id_pemesan = '$newid'");
 													foreach ($sql2 as $dt2) {
 												 ?>
 													<tr>
@@ -258,27 +287,36 @@
 										<h4>Pilih Nomor Kursi</h4>
 										<br>
 										<div class="login-form">
-											<form action="../models/s_dtl_pesan.php" method="post">
-												<input type="hidden" name="tiket" value="<?php echo $di['id_tiket']; ?>">
+											<form action="../models/s_dtl_pesan.php" method="post" id="bookingForm">
+												<input type="hidden" name="tiket" id="id_tiket" value="<?php echo $di['id_tiket']; ?>">
 												<input type="hidden" name="pemesan" value="<?php echo $newid; ?>">
 												
 												<div class="form-group">
 													<label>Pilih Tanggal</label>
-													<input type="text" name="tgl_tayang" id="datepicker_film" class="number" placeholder="Pilih Tanggal" required>
+													<input type="text" name="tgl_tayang" id="datepicker_film" class="number" placeholder="Pilih Tanggal" required autocomplete="off">
 												</div>
 
 												<div class="form-group">
 													<label>Pilih Sesi</label>
-													<select name="sesi" class="number" required>
-														<option value="<?php echo $di['id_sesi']; ?>">
-															<?php echo $di['mulai'] . ' - ' . $di['selesai']; ?>
-														</option>
+													<select name="sesi" id="sesi_select" class="number" required>
+                                                        <option value="">Pilih Tanggal Terlebih Dahulu</option>
 													</select>
 												</div>
 
+
 												<div class="form-group">
-													<label>Jumlah Kursi</label>
-													<input type="number" name="kursi" placeholder="Pilih No Kursi" min="0" max="<?php echo $di['jm_kursi']; ?>" class="number" required>
+													<label>Pilih Nomor Kursi</label>
+													<!-- Visual Seat Picker Container -->
+													<div id="seat_map_container">
+														<div class="seat-legend">
+															<span class="legend-item"><span class="seat available"></span> Tersedia</span>
+															<span class="legend-item"><span class="seat occupied"></span> Terisi</span>
+															<span class="legend-item"><span class="seat selected"></span> Dipilih</span>
+														</div>
+														<div id="seat_grid" class="seat-grid"></div>
+													</div>
+													<input type="hidden" name="kursi" id="input_kursi" required>
+													<p id="selected_seat_display" style="margin-top: 5px; font-weight: bold;">Kursi dipilih: -</p>
 												</div>
 												<div class="tp" style="width: 100px;">
 													<input type="submit" value="ADD">
@@ -296,6 +334,64 @@
 								height: 50px;
 								text-align: center;
 							}
+							/* Seat Picker CSS */
+							#seat_map_container {
+								margin-top: 10px;
+								border: 1px solid #ddd;
+								padding: 10px;
+								border-radius: 5px;
+								background: #f9f9f9;
+							}
+							.seat-legend {
+								display: flex;
+								gap: 15px;
+								margin-bottom: 10px;
+								justify-content: center;
+								font-size: 12px;
+							}
+							.legend-item {
+								display: flex;
+								align-items: center;
+								gap: 5px;
+							}
+							.seat-grid {
+								display: grid;
+								grid-template-columns: repeat(5, 1fr); /* 5 columns default */
+								gap: 10px;
+								max-height: 300px;
+								overflow-y: auto;
+								padding: 5px;
+							}
+							.seat {
+								height: 40px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								border: 1px solid #ccc;
+								border-radius: 5px;
+								cursor: pointer;
+								font-size: 12px;
+								font-weight: bold;
+								transition: all 0.2s;
+							}
+							.seat.available {
+								background-color: #fff;
+								color: #333;
+							}
+							.seat.occupied {
+								background-color: #d9534f; /* Red for occupied */
+								color: #fff;
+								cursor: not-allowed;
+								border-color: #d43f3a;
+							}
+							.seat.selected {
+								background-color: #4CAF50; /* Green for selected */
+								color: white;
+								border-color: #45a049;
+							}
+							.seat:hover:not(.occupied):not(.selected) {
+								background-color: #f0f0f0;
+							}
 						</style>
 
 				<div class="w3_content_agilleinfo_inner">
@@ -308,7 +404,7 @@
 									</div>
 										<div class="info">
 											<h4 style="font-size: 30px; margin: 0px;"><?php echo $di['judul']; ?></h4>
-											<p class="bar-kusus"><?php echo substr($di['durasi'],0,5); ?> | Rp.<?php echo number_format($di['harga'],2,",","."); ?> | <?php echo date('d F Y', strtotime($di['tgl_mulai'])); ?> - <?php echo date('d F Y', strtotime($di['tgl_berhenti'])); ?></p>
+											<p class="bar-kusus"><?php echo substr($di['durasi'] ?? '',0,5); ?> | Rp.<?php echo number_format($di['harga'],2,",","."); ?> | <?php echo date('d F Y', strtotime($min_date)); ?> - <?php echo date('d F Y', strtotime($max_date)); ?></p>
 											<fieldset>
 												<legend>Summary</legend>
 												<p><?php echo $di['sinopsis']; ?></p>
@@ -514,14 +610,150 @@ fit: true
 	$(document).ready(function () {
 		$("#tgl_lahir").datepicker({dateFormat:"yy/mm/dd",changeYear:true,changeMonth:true,yearRange:"-50:"});
 
+        // Backend Data injected into JS
+        var schedules = <?php echo json_encode($schedules); ?>;
+        // Format: [{id_jadwal, tgl_mulai, tgl_berhenti, id_sesi, id_ruang, nama_sesi, mulai, selesai, jm_kursi}, ...]
+
 		// Config datepicker for film
-		var minDate = new Date("<?php echo $di['tgl_mulai']; ?>");
-		var maxDate = new Date("<?php echo $di['tgl_berhenti']; ?>");
+        // Use Global Min/Max from PHP
+		var minDate = new Date("<?php echo $min_date; ?>");
+		var maxDate = new Date("<?php echo $max_date; ?>");
 		
+        var selectedSchedule = null;
+        var total_seats = 0;
+
 		$("#datepicker_film").datepicker({
 			dateFormat: "yy-mm-dd",
 			minDate: minDate,
-			maxDate: maxDate
+			maxDate: maxDate,
+			onSelect: function(dateText) {
+                updateSessionDropdown(dateText);
+				loadSeats();
+			}
 		});
+
+        function updateSessionDropdown(dateText) {
+            var select = $("#sesi_select");
+            select.empty();
+            select.append('<option value="">Pilih Sesi</option>');
+            
+            var selectedDate = new Date(dateText);
+            
+            // Filter schedules that cover this date
+            var availableSchedules = schedules.filter(function(sch) {
+                var start = new Date(sch.tgl_mulai);
+                var end = new Date(sch.tgl_berhenti);
+                return selectedDate >= start && selectedDate <= end;
+            });
+            
+            if (availableSchedules.length === 0) {
+                 select.append('<option value="">Tidak ada jadwal pada tanggal ini</option>');
+                 return;
+            }
+
+            availableSchedules.forEach(function(sch) {
+                select.append('<option value="' + sch.id_sesi + '" data-ruang="' + sch.id_ruang + '" data-seats="' + sch.jm_kursi + '">' + sch.mulai + ' - ' + sch.selesai + '</option>');
+            });
+        }
+
+		// Event Listener for Session Change
+		$("#sesi_select").change(function() {
+            var option = $(this).find(':selected');
+            var seats = option.data('seats');
+            if (seats) {
+                total_seats = parseInt(seats);
+            }
+			loadSeats();
+		});
+
+		
+		function loadSeats() {
+			var date = $("#datepicker_film").val();
+			var session = $("#sesi_select").val();
+			var ticket_id = $("#id_tiket").val();
+
+			// Always render grid skeleton
+			var occupiedSeats = [];
+            
+            // If date/session is selected, fetch real availability
+			if (date && session) {
+				$.ajax({
+					url: '../models/get_seats.php',
+					type: 'POST',
+					data: {
+						tgl_mulai: date,
+						id_sesi: session,
+						id_tiket: ticket_id
+					},
+					dataType: 'json',
+					success: function(data) {
+                        if (data.error) {
+                            alert("Error: " + data.error);
+                            renderGrid([], true);
+                        } else {
+						    renderGrid(data, true);
+                        }
+					},
+					error: function(xhr, status, error) {
+						console.error("Ajax Error:", status, error, xhr.responseText);
+                        // Try to parse JSON response text if available
+                        var errorMsg = error;
+                        try {
+                            var json = JSON.parse(xhr.responseText);
+                            if (json.error) errorMsg = json.error;
+                        } catch(e) {}
+                        
+						alert("Gagal memuat data kursi: " + errorMsg);
+						renderGrid([], true);
+					}
+				});
+			} else {
+                renderGrid([], false);
+            }
+		}
+
+		function renderGrid(occupiedSeats, isReady) {
+			var grid = $("#seat_grid");
+			grid.empty();
+			
+            if (total_seats === 0) {
+                 grid.html('<p style="grid-column: 1/-1; text-align: center;">Silakan pilih tanggal dan sesi.</p>');
+                 return;
+            }
+
+			for (var i = 1; i <= total_seats; i++) {
+				// Pastikan i dibaca sebagai angka agar cocok dengan data array
+				var isOccupied = occupiedSeats.includes(parseInt(i));
+				
+				var cssClass = isOccupied ? "seat occupied" : "seat available";
+				var title = isOccupied ? "Kursi " + i + " (Terisi)" : "Kursi " + i;
+				
+				// --- [PERUBAHAN UTAMA DI SINI] ---
+				// Jika kursi terisi (isOccupied), isi teks dengan "X"
+				// Jika kursi kosong, isi teks dengan nomor kursi (i)
+				var seatLabel = isOccupied ? "X" : i;
+
+				// Masukkan variable seatLabel ke dalam HTML
+				var seatBtn = $('<div class="' + cssClass + '" data-seat="' + i + '" title="' + title + '" style="color: #000;">' + seatLabel + '</div>');
+				
+				if (!isOccupied) {
+					seatBtn.click(function() {
+                        if (!$("#datepicker_film").val() || !$("#sesi_select").val()) {
+                            alert("Silakan pilih tanggal dan sesi terlebih dahulu!");
+                            return;
+                        }
+						$(".seat.selected").removeClass("selected").addClass("available"); 
+						$(this).removeClass("available").addClass("selected");
+						var seatNum = $(this).data("seat");
+						$("#input_kursi").val(seatNum);
+						$("#selected_seat_display").text("Kursi dipilih: " + seatNum);
+					});
+				}
+
+				grid.append(seatBtn);
+			}
+		}
+        // Initial Load
+        loadSeats();
 	})
 </script>

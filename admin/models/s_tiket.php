@@ -4,6 +4,6 @@
 							NULL,
 							'$_POST[harga]',
 							'$_POST[stok]', 
-							'$_POST[id_film]' ");
+							'' ");
 	echo "berhasil";
  ?>

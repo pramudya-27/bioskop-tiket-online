@@ -1,4 +1,4 @@
-<h3 class="agile_w3_title" style="text-align: center;"> Top <span>Movies</span></h3>
+<h3 class="agile_w3_title" style="text-align: center;"> Top <span style = "background-color : #3FA8FE">Movies</span></h3>
 	<!--/movies-->				
 	<div class="w3_agile_latest_movies">
 		<div id="owl-demo" class="owl-carousel owl-theme">
@@ -30,11 +30,11 @@
 	</div>	
 </div>
 
- <h3 class="agile_w3_title" style="text-align: center;">ALL <span>Movies</span> </h3>
+ <h3 class="agile_w3_title" style="text-align: center;">ALL <span style = "background-color : #3FA8FE">Movies</span> </h3>
 				<!--/requested-movies-->
 <div class="wthree_agile-requested-movies">
 	<?php
-		$qr = $proses->tampil("*","film","WHERE score <= 7"); 
+		$qr = $proses->tampil("*","film","ORDER BY id_film DESC"); 
 		foreach ($qr as $dt) {
  	?>	
 	<div class="col-md-2 w3l-movie-gride-agile requested-movies">

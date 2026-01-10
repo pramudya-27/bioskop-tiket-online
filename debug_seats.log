@@ -1,0 +1,37 @@
+2026-01-10 10:21:53 REQ: id_tiket=33, tgl_tayang=, id_sesi=1 
+RES: []
+2026-01-10 10:41:36 REQ: id_tiket=33, tgl_tayang=, id_sesi=1 
+RES: []
+2026-01-10 10:44:26 REQ: id_tiket=33, tgl_tayang=, id_sesi=1 
+RES: []
+2026-01-10 10:52:47 REQ: id_tiket=33, tgl_mulai=2026-01-10, id_sesi=1 
+SQL: SELECT kursi FROM dtl_pemesan 
+                WHERE id_tiket = '33' 
+                AND tgl_mulai = '2026-01-10' 
+                AND id_sesi = '1'
+                ORDER BY kursi ASC 
+ERR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tgl_mulai' in 'where clause'
+2026-01-10 10:53:08 REQ: id_tiket=33, tgl_tayang=, id_sesi=1 
+RES: []
+2026-01-10 12:55:02 REQ: id_tiket=33, tgl_tayang=, id_sesi=1 
+RES: []
+2026-01-10 12:58:59 REQ: id_tiket=34, tgl_tayang=, id_sesi=1 
+RES: []
+2026-01-10 13:16:22 REQ: id_tiket=34, tgl_tayang=, id_sesi=2 
+RES: []
+2026-01-10 13:16:40 REQ: id_tiket=34, tgl_tayang=, id_sesi=3 
+RES: []
+2026-01-10 13:22:18 REQ: id_tiket=33, tgl_tayang=, id_sesi=3 
+RES: []
+2026-01-10 13:22:28 REQ: id_tiket=33, tgl_tayang=, id_sesi=3 
+RES: []
+2026-01-10 13:22:56 REQ: id_tiket=33, tgl_tayang=, id_sesi=3 
+RES: []
+2026-01-10 13:26:27 REQ: id_tiket=33, tgl_tayang=, id_sesi=2 
+RES: []
+2026-01-10 13:26:56 REQ: id_tiket=33, tgl_tayang=, id_sesi=2 
+RES: []
+2026-01-10 13:28:51 REQ: id_tiket=34, tgl_tayang=, id_sesi=1 
+RES: []
+2026-01-10 13:29:22 REQ: id_tiket=33, tgl_tayang=, id_sesi=2 
+RES: []

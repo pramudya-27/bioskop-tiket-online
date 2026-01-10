@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 09, 2026 at 04:24 AM
+-- Generation Time: Jan 08, 2026 at 04:11 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.5.1
 
@@ -63,8 +63,8 @@ CREATE TABLE `dtl_pemesan` (
 --
 
 INSERT INTO `dtl_pemesan` (`id_dtl_pemesan`, `kursi`, `id_tiket`, `id_pemesan`, `tgl_tayang`, `id_sesi`) VALUES
-(19, 20, '9', 'PMSN00002', '2026-01-08', 1),
-(20, 14, '34', 'PMSN00003', '2026-01-09', 2);
+(17, 20, '9', 'PMSN00003', '2026-01-12', 2),
+(19, 20, '9', 'PMSN00002', '2026-01-08', 1);
 
 -- --------------------------------------------------------
 
@@ -90,11 +90,7 @@ CREATE TABLE `film` (
 --
 
 INSERT INTO `film` (`id_film`, `judul`, `rating`, `durasi`, `id_jadwal`, `id_tiket`, `sinopsis`, `score`, `rilis`, `gambar`) VALUES
-(8, 'Avatar 3', 'PG', '03:00:00', '11', '9', 'Ini adalah avatar', 9, '2025', 'AA1TjeXC.jpg'),
-(11, 'Agak laen', 'G', '01:00:00', '15', '34', 'Ini agak laen', 9, '2025', '15ALMP.jpg'),
-(12, 'Anaconda', 'PG', '02:00:00', '12', '35', 'Ini anaconda', 7, '2025', '25ANAA.jpg'),
-(13, 'Zootopia', 'G', '02:00:00', '19', '36', 'Ini zootopia', 8, '2025', '25ZOA2.jpg'),
-(14, 'Dusun Mayit', 'PG', '01:00:00', '18', '37', 'Ini film horor', 4, '2025', '15DMAT.jpg');
+(8, 'Avatar 3', 'PG', '03:00:00', '11', '9', 'Ini adalah avatar', 9, '2025', 'AA1TjeXC.jpg');
 
 -- --------------------------------------------------------
 
@@ -115,18 +111,7 @@ CREATE TABLE `jadwal` (
 --
 
 INSERT INTO `jadwal` (`id_jadwal`, `tgl_mulai`, `tgl_berhenti`, `id_sesi`, `id_ruang`) VALUES
-(11, '2026-01-09', '2026-01-15', '1', '1'),
-(12, '2026-01-09', '2026-01-17', '1', '5'),
-(13, '2026-01-09', '2026-01-16', '1', '6'),
-(14, '2026-01-09', '2026-01-16', '1', '7'),
-(15, '2026-01-09', '2026-01-16', '2', '1'),
-(16, '2026-01-09', '2026-01-16', '2', '5'),
-(17, '2026-01-09', '2026-01-16', '2', '6'),
-(18, '2026-01-09', '2026-01-16', '2', '7'),
-(19, '2026-01-09', '2026-01-16', '3', '1'),
-(20, '2026-01-09', '2026-01-16', '3', '5'),
-(21, '2026-01-09', '2026-01-16', '3', '6'),
-(22, '2026-01-09', '2026-01-16', '3', '7');
+(11, '2026-01-04', '2026-01-15', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -172,8 +157,7 @@ CREATE TABLE `pemesan` (
 
 INSERT INTO `pemesan` (`id_pemesan`, `id_member`, `jml_tiket_pesan`, `total_harga`, `tgl_pesan`, `status`) VALUES
 ('PMSN00001', '3', 1, '100000', '2026-01-07', 2),
-('PMSN00002', '3', 1, '100000', '2026-01-07', 2),
-('PMSN00003', '15', 1, '100000', '2026-01-09', 2);
+('PMSN00002', '3', 1, '100000', '2026-01-07', 2);
 
 -- --------------------------------------------------------
 
@@ -237,11 +221,7 @@ CREATE TABLE `tiket` (
 --
 
 INSERT INTO `tiket` (`id_tiket`, `harga`, `stok`, `id_film`) VALUES
-(9, '100000', 100, '8'),
-(34, '100000', 99, '11'),
-(35, '100000', 100, '12'),
-(36, '100000', 100, '13'),
-(37, '100000', 100, '14');
+(9, '100000', 3, '8');
 
 --
 -- Indexes for dumped tables
@@ -315,19 +295,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `dtl_pemesan`
 --
 ALTER TABLE `dtl_pemesan`
-  MODIFY `id_dtl_pemesan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_dtl_pemesan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `film`
 --
 ALTER TABLE `film`
-  MODIFY `id_film` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_film` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id_jadwal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_jadwal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `member`
@@ -351,7 +331,7 @@ ALTER TABLE `sesi`
 -- AUTO_INCREMENT for table `tiket`
 --
 ALTER TABLE `tiket`
-  MODIFY `id_tiket` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_tiket` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

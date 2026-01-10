@@ -6,14 +6,26 @@
 		echo "<script>alert('Kursi Sudah Di Pesan')</script>";
 		echo "<script>document.location = '../index.php'</script>";
 	}else{
-		$proses->simpan("dtl_pemesan","
-										NULL,
-										'$_POST[kursi]',
-										'$_POST[tiket]',
-										'$_POST[pemesan]',
-										'$_POST[tgl_tayang]',
-										'$_POST[sesi]' ");
-		echo "<script>alert('Berhasi Menambahkan')</script>";
-		echo "<script>document.location = '../index.php'</script>";
+		try {
+			$tgl = date('Y-m-d', strtotime($_POST['tgl_tayang'])); // Ensure correct format
+			$sql = "INSERT INTO dtl_pemesan (id_dtl_pemesan, kursi, id_tiket, id_pemesan, tgl_tayang, id_sesi) 
+					VALUES (NULL, '$_POST[kursi]', '$_POST[tiket]', '$_POST[pemesan]', '$tgl', '$_POST[sesi]')";
+			
+			$stmt = $proses->con->prepare($sql);
+			if ($stmt->execute()) {
+				echo "<script>alert('Berhasil Menambahkan')</script>";
+				echo "<script>document.location = '../index.php'</script>";
+			} else {
+				$err = $stmt->errorInfo();
+                var_dump($err);
+                var_dump($_POST);
+                die("Save Failed");
+				// echo "<script>alert('Gagal Menambahkan: " . $err[2] . "')</script>";
+				// echo "<script>history.back();</script>";
+			}
+		} catch (PDOException $e) {
+			echo "<script>alert('Error: " . $e->getMessage() . "')</script>";
+			echo "<script>history.back();</script>";
+		}
 	}
  ?>

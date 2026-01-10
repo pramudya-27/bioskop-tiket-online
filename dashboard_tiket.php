@@ -2,9 +2,25 @@
 	include_once "config/crud.php";
 	session_start();
 	if (!isset($_SESSION['id'])) {
-		echo "<script>alert('Harap login terlebih dahulu');document.location='index.php'</script>";
-		exit;
-	}
+    echo "<!DOCTYPE html>
+    <html>
+    <head>
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    </head>
+    <body>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Akses Ditolak',
+                text: 'Harap login terlebih dahulu'
+            }).then(function() {
+                window.location.href = 'index.php';
+            });
+        </script>
+    </body>
+    </html>";
+    exit;
+}
 	$id_member = $_SESSION['id'];
 ?>
 <!DOCTYPE html>
@@ -97,14 +113,12 @@
 							// Logic: Join pemesan -> dtl_pemesan -> tiket -> film -> jadwal -> sesi
 							// Filter by status '2' (paid) and future date
 							$today = date('Y-m-d');
-							$sql_aktif = $proses->tampil("film.judul, film.rilis, sesi.mulai as jam_tayang, sesi_pilih.mulai as jam_pilih, jadwal.tgl_mulai as tanggal_tayang, dtl_pemesan.tgl_tayang as tanggal_pilih, dtl_pemesan.kursi, dtl_pemesan.id_dtl_pemesan, dtl_pemesan.id_pemesan", 
+							$sql_aktif = $proses->tampil("film.judul, film.rilis, sesi.mulai as jam_tayang, dtl_pemesan.tgl_tayang as tanggal_pilih, dtl_pemesan.kursi, dtl_pemesan.id_dtl_pemesan, dtl_pemesan.id_pemesan", 
 								"pemesan 
 								JOIN dtl_pemesan ON pemesan.id_pemesan = dtl_pemesan.id_pemesan 
 								JOIN tiket ON dtl_pemesan.id_tiket = tiket.id_tiket
-								JOIN film ON tiket.id_film = film.id_film
-								JOIN jadwal ON film.id_jadwal = jadwal.id_jadwal
-								JOIN sesi ON jadwal.id_sesi = sesi.id_sesi
-								LEFT JOIN sesi as sesi_pilih ON dtl_pemesan.id_sesi = sesi_pilih.id_sesi",
+								JOIN film ON film.id_tiket = tiket.id_tiket
+								LEFT JOIN sesi ON dtl_pemesan.id_sesi = sesi.id_sesi",
 								"WHERE pemesan.id_member = '$id_member' AND pemesan.status = '2' AND dtl_pemesan.tgl_tayang >= '$today' ORDER BY dtl_pemesan.tgl_tayang ASC, sesi.mulai ASC");
 							
 							$no = 1;
@@ -113,8 +127,8 @@
 						<tr>
 							<td><?php echo $no++; ?></td>
 							<td><?php echo $row['judul']; ?></td>
-							<td><?php echo date('d F Y', strtotime($row['tanggal_pilih'] ? $row['tanggal_pilih'] : $row['tanggal_tayang'])); ?></td>
-							<td><?php echo $row['jam_pilih'] ? substr($row['jam_pilih'],0,5) : substr($row['jam_tayang'],0,5); ?></td>
+							<td><?php echo date('d F Y', strtotime($row['tanggal_pilih'])); ?></td>
+							<td><?php echo isset($row['jam_tayang']) ? substr($row['jam_tayang'],0,5) : '-'; ?></td>
 							<td><?php echo $row['kursi']; ?></td>
 							<td>
 								<a href="admin/views/p_tiket.php?id=<?php echo $row['id_dtl_pemesan']; ?>" target="_blank" class="btn btn-info btn-sm"><i class="fa fa-print"></i> Cetak</a>

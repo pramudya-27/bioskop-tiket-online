@@ -36,11 +36,21 @@
 			<p>Durasi</p>
 			<input type="time" name="durasi" placeholder="HH:MM" value="<?php echo $data['durasi']; ?>" required>
 
-			<p>ID Jadwal</p>
-			<input type="text" name="jadwal" value="<?php echo $data['id_jadwal']; ?>" required>
+			<p>ID Tiket / Harga</p>
+			<select name="id_tiket" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+				<option value="">Pilih Tiket</option>
+				<?php
+					$q_tiket = $proses->tampil("*","tiket","");
+					foreach($q_tiket as $t) {
+						$selected = (isset($data['id_tiket']) && $data['id_tiket'] == $t['id_tiket']) ? 'selected' : '';
+						echo "<option value='$t[id_tiket]' $selected>ID: $t[id_tiket] - Rp ".number_format($t['harga'])."</option>";
+					}
+				?>
+			</select>
 
-			<p>ID Tiket</p>
-			<input type="text" name="id_tiket" value="<?php echo isset($data['id_tiket']) ? $data['id_tiket'] : ''; ?>">
+
+
+
 
 			<p>Rating</p>
 			<?php 
@@ -91,46 +101,45 @@
 			<p>Gambar/Foto/Poster</p>
 			<input type="file" name="gambar">
 			
-			<input type="submit" value="<?php echo $button; ?>" class="btn-simpan">
+			<button type="button" class="btn-simpan" onclick="submit_film('<?php echo $button; ?>')"><?php echo $button; ?></button>
 			<button type="button" class="btn-batal" onclick="thickbox('','exit')">Batal</button>
 		</form>
 	</div>
 </div>
 <script type="text/javascript">
-	$("#Simpan").on('submit',(function(e){
-		e.preventDefault();
-		$.ajax({
-			url:"models/s_film.php",
-			type:"POST",
-			data:new FormData(this),
-			processData:false,
-			contentType:false,
-			cache:false,
-			success:function(msg){
-				if (msg == "true") {
-					swal("Berhasil !!","Berhasil Menyimpan Data ","success");
+    function submit_film(mode) {
+        var formID = mode; // "Simpan" or "Edit"
+        var form = document.getElementById(formID);
+        
+        // Basic Validation
+        if (!form.judul.value || !form.durasi.value || !form.sinopsis.value) {
+            alert("Harap isi semua field wajib!");
+            return;
+        }
+
+        var formData = new FormData(form);
+        var url = (mode == "Simpan") ? "models/s_film.php" : "models/e_film.php";
+        var successMsg = (mode == "Simpan") ? "Berhasil Menyimpan Data" : "Berhasil Mengedit Data";
+
+        $.ajax({
+			url: url,
+			type: "POST",
+			data: formData,
+			processData: false,
+			contentType: false,
+			cache: false,
+			success: function(msg){
+				if (msg.trim() == "true") {
+					swal("Berhasil !!", successMsg, "success");
 					$(".content").load('views/tmp_film.php');
 					$(".bg-thick").fadeOut(500);
-				}
-			}
-		})
-	}))
-	$("#Edit").on('submit',(function(e){
-		e.preventDefault();
-		$.ajax({
-			url:"models/e_film.php",
-			type:"POST",
-			data:new FormData(this),
-			processData:false,
-			contentType:false,
-			cache:false,
-			success:function(msg){
-				if (msg == "true") {
-					swal("Berhasil !!","Berhasil Mengedit Data ","success");
-					$(".content").load('views/tmp_film.php');
-					$(".bg-thick").fadeOut(500);
-				}
-			}
-		})
-	}))
+				} else {
+                    alert("Gagal: " + msg);
+                }
+			},
+            error: function(err) {
+                alert("Terjadi kesalahan sistem.");
+            }
+		});
+    }
 </script>

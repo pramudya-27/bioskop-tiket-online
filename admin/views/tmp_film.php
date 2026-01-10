@@ -8,9 +8,10 @@
 			<th>Judul</th>
 			<th>Rating</th>
 			<th>Durasi</th>
-			<th>ID Jadwal</th>
 			<th>ID Tiket</th>
-			<th>Rilis</th>
+
+
+			<th></th>Rilis</th>
 			<th>Score</th>
 			<th>Sinopsis</th>
 			<th>Gambar</th>
@@ -29,8 +30,9 @@
 			<td><?php echo $data['rating']; ?></td>
 
 			<td><?php echo substr($data['durasi'] ?? '', 0,5); ?></td>
-			<td><?php echo $data['id_jadwal']; ?></td>
 			<td><?php echo isset($data['id_tiket']) ? $data['id_tiket'] : '-'; ?></td>
+
+
 			<td><?php echo $data['rilis']; ?></td>
 			<td><?php echo $data['score']; ?></td>
 			<td width="150"><?php echo substr($data['sinopsis'] ?? '',0,40);?>...</td>

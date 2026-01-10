@@ -12,8 +12,14 @@
 		$judul = "Tambah Data Jadwal";
 		$button = "Simpan";
 		$onclick = "tmb_jadwal()";
-		// Initialize empty array
-		$dt = array_fill(0, 5, "");
+        // Initialize with keys to avoid errors
+		$dt = [
+            'id_film' => '',
+            'tgl_mulai' => '',
+            'tgl_berhenti' => '',
+            'id_sesi' => '',
+            'id_ruang' => ''
+        ];
 	}
  ?>
 <div class="bg-box">
@@ -22,17 +28,30 @@
 		<h2><?php echo $judul; ?></h2>
 	</div>
 	<div class="in-box">
+		<p>Film</p>
+		<select id="film">
+			<option value="">Pilih Film</option>
+			<?php
+				$q_film = $proses->tampil("*","film","");
+				foreach($q_film as $f) {
+					// Use specific key
+					$selected = ($dt['id_film'] == $f['id_film']) ? 'selected' : ''; 
+					echo "<option value='$f[id_film]' $selected>$f[judul]</option>";
+				}
+			?>
+		</select>
+
 		<p>Tanggal Mulai</p>
-		<input type="text" id="mulai" value="<?php echo $dt[1]; ?>" placeholder="YY/MM/DD">
+		<input type="text" id="mulai" value="<?php echo $dt['tgl_mulai']; ?>" placeholder="YY/MM/DD">
 
 		<p>Tanggal Selesai</p>
-		<input type="text" id="selesai" value="<?php echo $dt[2]; ?>" placeholder="YY/MM/DD">
+		<input type="text" id="selesai" value="<?php echo $dt['tgl_berhenti']; ?>" placeholder="YY/MM/DD">
 
 		<p>ID Sesi</p>
-		<input type="text" id="sesi" value="<?php echo $dt[3]; ?>">
+		<input type="text" id="sesi" value="<?php echo $dt['id_sesi']; ?>">
 
 		<p>ID Ruang</p>
-		<input type="text" id="ruang" value="<?php echo $dt[4]; ?>">
+		<input type="text" id="ruang" value="<?php echo $dt['id_ruang']; ?>">
 
 		<button class="btn-simpan" onclick="<?php echo $onclick; ?>"><?php echo $button; ?></button>
 		<button class="btn-batal" onclick="thickbox('','exit')">Batal</button>

@@ -28,8 +28,7 @@
 		<p>Stok</p>
 		<input type="number" id="stok" value="<?php echo $dt[2]; ?>">
 
-		<p>ID Film</p>
-		<input type="text" id="id_film" value="<?php echo $dt[3]; ?>">
+
 
 		<button class="btn-simpan" onclick="<?php echo $onclick; ?>"><?php echo $button; ?></button>
 		<button class="btn-batal" onclick="thickbox('','exit')">Batal</button>

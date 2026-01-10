@@ -1,5 +1,6 @@
 <?php include_once "../config/crud.php"; ?>
 <h1>Tampil Data sesi</h1>
+<button id="btn-tambah" onclick="thickbox('views/thickbox/input_sesi.php','show')">+Tambah</button>
 <table id="table">
 	<thead>
 		<tr>
