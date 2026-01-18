@@ -6,21 +6,18 @@ ob_start();
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 
-$logFile = '../debug_seats.log';
-
 try {
+    // Determine path simply like s_dtl_pesan.php
+    // Assuming this file is in models/
     include '../config/crud.php';
 
     if (!isset($proses)) {
-        throw new Exception("Database connection failed.");
+        throw new Exception("Database connection failed (proses object missing).");
     }
 
     $id_tiket = isset($_POST['id_tiket']) ? $_POST['id_tiket'] : '';
-    $tgl_tayang = isset($_POST['tgl_tayang']) ? $_POST['tgl_tayang'] : '';
+    $tgl_tayang = isset($_POST['tgl_tayang']) ? $_POST['tgl_tayang'] : ''; // Corrected parameter
     $id_sesi = isset($_POST['id_sesi']) ? $_POST['id_sesi'] : '';
-
-    $logEntry = date('Y-m-d H:i:s') . " REQ: id_tiket=$id_tiket, tgl_tayang=$tgl_tayang, id_sesi=$id_sesi \n";
-    file_put_contents($logFile, $logEntry, FILE_APPEND);
 
     $occupied_seats = [];
 
@@ -35,26 +32,27 @@ try {
                 AND id_sesi = '$id_sesi'
                 ORDER BY kursi ASC";
         
-        file_put_contents($logFile, "SQL: $sql \n", FILE_APPEND);
-
+        // Execute query
         $result = $proses->con->query($sql);
         
         if ($result) {
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $occupied_seats[] = (int)$row['kursi'];
             }
-        } 
+        } else {
+             // Query failed
+             $errorInfo = $proses->con->errorInfo();
+             throw new Exception("Query failed: " . $errorInfo[2]);
+        }
     }
-
-    file_put_contents($logFile, "RES: " . json_encode($occupied_seats) . "\n", FILE_APPEND);
 
     ob_clean();
     header('Content-Type: application/json');
     echo json_encode($occupied_seats);
 
 } catch (Throwable $e) {
-    file_put_contents($logFile, "ERR: " . $e->getMessage() . "\n", FILE_APPEND);
     ob_clean();
+    // Return 200 but with error field to allow client parsing
     header('Content-Type: application/json');
     echo json_encode(['error' => $e->getMessage()]);
 }

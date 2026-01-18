@@ -47,6 +47,11 @@
         if ($min_date === null || $start < $min_date) $min_date = $start;
         if ($max_date === null || $end > $max_date) $max_date = $end;
     }
+
+    $today_date = date('Y-m-d');
+    if ($min_date < $today_date) {
+        $min_date = $today_date;
+    }
     
     // If no schedules found
     if (empty($schedules)) {
@@ -155,7 +160,7 @@
 
 												 	$no = "1";
 
-													$sql2 = $proses->tampil("*","film,tiket,dtl_pemesan","WHERE film.id_tiket = tiket.id_tiket AND tiket.id_tiket = dtl_pemesan.id_tiket AND dtl_pemesan.id_pemesan = '$newid'");
+													$sql2 = $proses->tampil("*","film,tiket,dtl_pemesan","WHERE dtl_pemesan.id_film = film.id_film AND tiket.id_tiket = dtl_pemesan.id_tiket AND dtl_pemesan.id_pemesan = '$newid'");
 													foreach ($sql2 as $dt2) {
 												 ?>
 													<tr>
@@ -210,8 +215,7 @@
 
 								</ul>
 						</div>
-								<button style="padding: 5px 18px;border:1px;background-color: #000;color:#fff;text-transform: uppercase;float: right;font-size: 15px;" data-toggle="modal" data-target="#kranjang" <?php echo $akun; ?> >Keranjang</button>
-						
+						 <a href="../dashboard_tiket.php" style="padding: 5px 18px;border:1px;background-color: #000;color:#fff;text-transform: uppercase;float: right;font-size: 15px; margin-right: 5px; text-decoration: none; display: inline-block;" <?php echo $akun; ?>>Tiket</a>
 				</div>
 			</div>
 			<!--//banner-bottom-->
@@ -316,6 +320,7 @@
 														<div id="seat_grid" class="seat-grid"></div>
 													</div>
 													<input type="hidden" name="kursi" id="input_kursi" required>
+                                                    <input type="hidden" name="id_film" value="<?php echo $_GET['id']; ?>">
 													<p id="selected_seat_display" style="margin-top: 5px; font-weight: bold;">Kursi dipilih: -</p>
 												</div>
 												<div class="tp" style="width: 100px;">
@@ -678,10 +683,10 @@ fit: true
             // If date/session is selected, fetch real availability
 			if (date && session) {
 				$.ajax({
-					url: '../models/get_seats.php',
+					url: '/bioskop-tiket-online/models/get_seats.php',
 					type: 'POST',
 					data: {
-						tgl_mulai: date,
+						tgl_tayang: date,
 						id_sesi: session,
 						id_tiket: ticket_id
 					},
@@ -731,7 +736,7 @@ fit: true
 				// --- [PERUBAHAN UTAMA DI SINI] ---
 				// Jika kursi terisi (isOccupied), isi teks dengan "X"
 				// Jika kursi kosong, isi teks dengan nomor kursi (i)
-				var seatLabel = isOccupied ? "X" : i;
+				var seatLabel = i;
 
 				// Masukkan variable seatLabel ke dalam HTML
 				var seatBtn = $('<div class="' + cssClass + '" data-seat="' + i + '" title="' + title + '" style="color: #000;">' + seatLabel + '</div>');

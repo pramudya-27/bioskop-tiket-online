@@ -116,8 +116,7 @@
 							$sql_aktif = $proses->tampil("film.judul, film.rilis, sesi.mulai as jam_tayang, dtl_pemesan.tgl_tayang as tanggal_pilih, dtl_pemesan.kursi, dtl_pemesan.id_dtl_pemesan, dtl_pemesan.id_pemesan", 
 								"pemesan 
 								JOIN dtl_pemesan ON pemesan.id_pemesan = dtl_pemesan.id_pemesan 
-								JOIN tiket ON dtl_pemesan.id_tiket = tiket.id_tiket
-								JOIN film ON film.id_tiket = tiket.id_tiket
+								JOIN film ON dtl_pemesan.id_film = film.id_film
 								LEFT JOIN sesi ON dtl_pemesan.id_sesi = sesi.id_sesi",
 								"WHERE pemesan.id_member = '$id_member' AND pemesan.status = '2' AND dtl_pemesan.tgl_tayang >= '$today' ORDER BY dtl_pemesan.tgl_tayang ASC, sesi.mulai ASC");
 							

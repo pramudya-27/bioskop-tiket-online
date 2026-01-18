@@ -2,8 +2,8 @@
 	include_once "../../config/crud.php";
 	$sql = $proses->tampil("*, ruang.nama as nama_ruang",
 		"dtl_pemesan 
-		JOIN tiket ON dtl_pemesan.id_tiket = tiket.id_tiket 
-		JOIN film ON film.id_tiket = tiket.id_tiket 
+		JOIN film ON dtl_pemesan.id_film = film.id_film  
+		JOIN tiket ON dtl_pemesan.id_tiket = tiket.id_tiket
 		JOIN sesi ON dtl_pemesan.id_sesi = sesi.id_sesi
 		LEFT JOIN jadwal ON (jadwal.id_film = film.id_film AND jadwal.id_sesi = dtl_pemesan.id_sesi)
 		LEFT JOIN ruang ON jadwal.id_ruang = ruang.id_ruang",
@@ -18,7 +18,7 @@
  <body>
  	<div class="box-tiket">
  		<div class="kepala-tiket">
- 			<h1>Movie Place Cinema</h1>
+ 			<h1>ITPLN Movies Cinema</h1>
  		</div>
  		<div class="isi">
  			<h2><?php echo $dt['judul']; ?></h2>

@@ -61,7 +61,7 @@
 			$slid = "";
 		}
   	 ?>
-	<div id="demo-1" data-zs-src='["assets/bootstrap/images/2.jpg", "assets/bootstrap/images/1.jpg", "assets/bootstrap/images/3.jpg","assets/bootstrap/images/4.jpg"]' data-zs-overlay="dots">
+	<div id="demo-1" data-zs-src='["https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg", "https://image.tmdb.org/t/p/w500/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg", "https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg","https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg"]' data-zs-overlay="dots">
 		<div class="demo-inner-content">
 		<!--/header-w3l-->
 			   <div class="header-w3-agileits" id="home">
@@ -151,7 +151,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4>Daftar Blanja</h4>
+										<h4>Daftar Belanja</h4>
 										<div class="login-form">
 											<form action="views/checkout.php" method="post">
 												<table class="table">
@@ -164,7 +164,7 @@
 
 												 	$no = "1";
 
-													$sql2 = $proses->tampil("*","film,tiket,dtl_pemesan","WHERE film.id_tiket = tiket.id_tiket AND tiket.id_tiket = dtl_pemesan.id_tiket AND dtl_pemesan.id_pemesan = '$newid'");
+													$sql2 = $proses->tampil("*","film,tiket,dtl_pemesan","WHERE dtl_pemesan.id_film = film.id_film AND tiket.id_tiket = dtl_pemesan.id_tiket AND dtl_pemesan.id_pemesan = '$newid'");
 													foreach ($sql2 as $dt2) {
 												 ?>
 													<tr>
